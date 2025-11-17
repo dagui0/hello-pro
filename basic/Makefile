@@ -2,4 +2,4 @@
 .PHONY: run
 
 run:
-	yabasic hello.bas
+	@yabasic hello.bas

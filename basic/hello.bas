@@ -1,1 +1,1 @@
-PRINT "Hello, World!"
+PRINT "[BASIC] Hello, World!"

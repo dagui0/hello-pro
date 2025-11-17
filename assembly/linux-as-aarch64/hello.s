@@ -1,7 +1,7 @@
 // hello.s 
 .data
 
-msg: .ascii "Hello, World!\n"
+msg: .ascii "[Assembled aarch64] Hello, World!\n"
 len = . - msg
 
 .text

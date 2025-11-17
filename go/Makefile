@@ -1,12 +1,10 @@
 .PHONY: run build clean
 
-run:
-	go run hello.go
+run: hello
+	@./hello
 
-build: hello
-hello:
+hello: hello.go
 	go build -o $@ hello.go
-	./hello
 
 clean:
 	rm -f hello

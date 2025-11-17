@@ -1,6 +1,6 @@
-.PHONY: all clean
+.PHONY: run clean
 
-all: hello
+run: hello
 	@./hello
 
 hello.o: hello.s
