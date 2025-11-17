@@ -2,14 +2,14 @@
 
 run:
 	for d in *; do \
-	    if [ ! -e $$d/.skip ]; then \
+	    if [ -d $$d -a ! -e $$d/.skip ]; then \
 	        $(MAKE) -C $$d $@; \
 	    fi; \
 	done
 
 clean:
 	for d in *; do \
-	    if [ ! -e $$d/.skip ]; then \
+	    if [ -d $$d -a ! -e $$d/.skip ]; then \
 	        $(MAKE) -C $$d $@; \
 	    fi; \
 	done
