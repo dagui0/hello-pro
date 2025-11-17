@@ -1,3 +1,3 @@
 # Hello World Professional
 
-I am a "Hello, World!" professional developer with 20 years of experience.
+I am a professional "Hello, World!" developer with 20 years of experience.
