@@ -4,7 +4,7 @@ SRC_DIR   = .
 
 -include local.setup.mk
 
-.PHONY: run clean hello
+.PHONY: run clean hello truth
 .SECONDARY:
 
 run: hello
@@ -24,4 +24,7 @@ $(BIN_DIR)/%: $(BUILD_DIR)/%.o | $(BIN_DIR)
 	$(CXX) $(LDFLAGS) -o $@ $<
 
 hello: $(BIN_DIR)/hello
+	@$<
+
+truth: $(BIN_DIR)/truth
 	@$<

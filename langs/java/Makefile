@@ -30,3 +30,5 @@ $(BIN_DIR)/%: $(BIN_DIR)/hello.jar
 hello: $(BIN_DIR)/Hello
 
 quine: $(BIN_DIR)/Quine
+
+truth: $(BIN_DIR)/Truth
