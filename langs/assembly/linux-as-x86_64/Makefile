@@ -17,7 +17,7 @@ $(BIN_DIR):
 $(BUILD_DIR):
 	mkdir -p $@
 
-$(BUILD_DIR)/%.o: %.s | $(BUILD_DIR)
+$(BUILD_DIR)/%.o: $(SRC_DIR)/%.s | $(BUILD_DIR)
 	$(AS) $(ASFLAGS) -o $@ $<
 
 $(BIN_DIR)/%: $(BUILD_DIR)/%.o | $(BIN_DIR)
