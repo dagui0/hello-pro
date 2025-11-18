@@ -1,4 +1,3 @@
-*.o
-hello
-hello.exe
+bin
+build
 .skip
