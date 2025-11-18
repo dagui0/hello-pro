@@ -1,10 +1,13 @@
 PACKAGE_NAME = com.yidigun.hellopro
 PACKAGE_DIR  = com/yidigun/hellopro
 
-.PHONY: run clean
+.PHONY: run quine clean
 
 run: hello.jar
 	@java -jar hello.jar
+
+quine: hello.jar
+	@java -cp hello.jar $(PACKAGE_NAME).Quine
 
 hello.jar: build/$(PACKAGE_DIR)/Hello.class
 	(cd build; \
