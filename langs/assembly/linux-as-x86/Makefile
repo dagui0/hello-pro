@@ -10,7 +10,7 @@ SRC_DIR   = .
 run: hello
 
 clean:
-	rm -rf bin build
+	rm -rf $(BIN_DIR) $(BUILD_DIR)
 
 $(BIN_DIR):
 	mkdir -p $@

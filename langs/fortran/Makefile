@@ -1,13 +1,27 @@
-.PHONY: run clean
+BIN_DIR   = bin
+BUILD_DIR = build
+SRC_DIR   = .
+
+-include local.setup.mk
+
+.PHONY: run clean hello
+.SECONDARY:
 
 run: hello
-	@./hello
-
-hello.o: hello.f90
-	$(FC) -c -o $@ $<
-
-hello: hello.o
-	$(FC) -o $@ $<
 
 clean:
-	rm -f hello.o hello
+	rm -rf $(BIN_DIR) $(BUILD_DIR)
+
+$(BIN_DIR):
+	mkdir -p $@
+$(BUILD_DIR):
+	mkdir -p $@
+
+$(BUILD_DIR)/%.o: $(SRC_DIR)/%.f90 | $(BUILD_DIR)
+	$(FC) $(FCFLAGS) -c -o $@ $<
+
+$(BIN_DIR)/%: $(BUILD_DIR)/%.o | $(BIN_DIR)
+	$(FC) $(LDFLAGS) -o $@ $<
+
+hello: $(BIN_DIR)/hello
+	@$<

@@ -10,14 +10,14 @@ SRC_DIR   = .
 run: hello
 
 clean:
-	rm -rf bin build
+	rm -rf $(BIN_DIR) $(BUILD_DIR)
 
 $(BIN_DIR):
 	mkdir -p $@
 $(BUILD_DIR):
 	mkdir -p $@
 
-$(BUILD_DIR)/%.o: %.cxx | $(BUILD_DIR)
+$(BUILD_DIR)/%.o: $(SRC_DIR)/%.cxx | $(BUILD_DIR)
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 $(BIN_DIR)/%: $(BUILD_DIR)/%.o | $(BIN_DIR)

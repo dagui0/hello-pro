@@ -1,10 +1,24 @@
-.PHONY: run build clean
+BIN_DIR   = bin
+BUILD_DIR = build
+SRC_DIR   = .
+
+-include local.setup.mk
+
+.PHONY: run clean hello
+.SECONDARY:
 
 run: hello
-	@./hello
-
-hello: hello.go
-	go build -o $@ hello.go
 
 clean:
-	rm -f hello
+	rm -rf $(BIN_DIR) $(BUILD_DIR)
+
+$(BIN_DIR):
+	mkdir -p $@
+$(BUILD_DIR):
+	mkdir -p $@
+
+$(BIN_DIR)/%: $(SRC_DIR)/%.go | $(BIN_DIR)
+	go build -o $@ $<
+
+hello: $(BIN_DIR)/hello
+	@$<

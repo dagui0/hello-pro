@@ -1,8 +1,17 @@
+BIN_DIR   = bin
+BUILD_DIR = build
+SRC_DIR   = .
+
+-include local.setup.mk
+
 .PHONY: run clean hello
 
 run: hello
 
-hello:
-	@python hello.py
-
 clean:
+	rm -rf $(BIN_DIR) $(BUILD_DIR)
+
+$(BIN_DIR)/%: $(SRC_DIR)/%.py
+	@python $<
+
+hello: $(BIN_DIR)/hello

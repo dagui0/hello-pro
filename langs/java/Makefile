@@ -5,13 +5,14 @@ SRC_DIR   = .
 -include local.setup.mk
 
 _SOURCES = $(wildcard $(SRC_DIR)/*.java)
+
 .PHONY: run clean hello truth echo
 .SECONDARY:
 
 run: hello
 
 clean:
-	rm -rf bin build
+	rm -rf $(BIN_DIR) $(BUILD_DIR)
 
 $(BIN_DIR):
 	mkdir -p $@
