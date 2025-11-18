@@ -4,7 +4,7 @@ SRC_DIR   = .
 
 -include local.setup.mk
 
-.PHONY: run clean setup hello truth echo
+.PHONY: run clean hello truth echo
 .SECONDARY:
 
 run: hello

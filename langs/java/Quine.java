@@ -1,5 +1,3 @@
-package com.yidigun.hellopro;
-
 public class Quine {
     public static void main(String[] args) {
         char q = 34;      // Quotation mark character

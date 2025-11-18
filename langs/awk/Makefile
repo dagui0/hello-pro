@@ -1,4 +1,8 @@
-.PHONY: run
+.PHONY: run clean hello
 
-run:
+run: hello
+
+hello:
 	@awk -f hello.awk
+
+clean:

@@ -1,4 +1,8 @@
-.PHONY: run clean
+.PHONY: run clean hello
 
-run:
+run: hello
+
+hello:
 	@python hello.py
+
+clean:

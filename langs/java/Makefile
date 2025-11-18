@@ -1,24 +1,31 @@
-PACKAGE_NAME = com.yidigun.hellopro
-PACKAGE_DIR  = com/yidigun/hellopro
+BIN_DIR   = bin
+BUILD_DIR = build
+SRC_DIR   = .
 
-.PHONY: run quine clean
+-include local.setup.mk
 
-run: hello.jar
-	@java -jar hello.jar
+_SOURCES = $(wildcard $(SRC_DIR)/*.java)
+.PHONY: run clean hello truth echo
+.SECONDARY:
 
-quine: hello.jar
-	@java -cp hello.jar $(PACKAGE_NAME).Quine
-
-hello.jar: build/$(PACKAGE_DIR)/Hello.class
-	(cd build; \
-	mkdir -p META-INF && \
-	echo "Main-Class: $(PACKAGE_NAME).Hello" \
-	    >META-INF/MANIFEST.MF && \
-	jar cfm ../hello.jar META-INF/MANIFEST.MF *)
-
-build/$(PACKAGE_DIR)/Hello.class: $(PACKAGE_DIR)/Hello.java
-	mkdir -p build && \
-	javac -d build $$(find . -type f -name "*.java")
+run: hello
 
 clean:
-	rm -rf build hello.jar
+	rm -rf bin build
+
+$(BIN_DIR):
+	mkdir -p $@
+$(BUILD_DIR):
+	mkdir -p $@
+
+$(BIN_DIR)/hello.jar: $(_SOURCES) | $(BIN_DIR) $(BUILD_DIR)
+	javac -d $(BUILD_DIR) $(_SOURCES) && \
+	(cd $(BUILD_DIR); jar cf hello.jar *) && \
+	mv $(BUILD_DIR)/hello.jar $(BIN_DIR)/hello.jar
+
+$(BIN_DIR)/%: $(BIN_DIR)/hello.jar
+	@java -cp $< `echo $@ | sed -e 's!^$(BIN_DIR)/!!'`
+
+hello: $(BIN_DIR)/Hello
+
+quine: $(BIN_DIR)/Quine

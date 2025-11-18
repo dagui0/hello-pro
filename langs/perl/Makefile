@@ -1,4 +1,8 @@
-.PHONY: run
+.PHONY: run clean hello
 
-run:
+run: hello
+
+hello:
 	@perl hello.pl
+
+clean:
