@@ -1,27 +1,10 @@
-BIN_DIR   = bin
-BUILD_DIR = build
-SRC_DIR   = .
+COMMON_TARGETS = run clean
 
--include local.mk
+.PHONY: $(COMMON_TARGETS)
 
-.PHONY: run clean hello
-.SECONDARY:
-
-run: hello
-
-clean:
-	rm -rf $(BIN_DIR) $(BUILD_DIR)
-
-$(BIN_DIR):
-	mkdir -p $@
-$(BUILD_DIR):
-	mkdir -p $@
-
-$(BUILD_DIR)/%.o: $(SRC_DIR)/%.f90 | $(BUILD_DIR)
-	$(FC) $(FCFLAGS) -c -o $@ $<
-
-$(BIN_DIR)/%: $(BUILD_DIR)/%.o | $(BIN_DIR)
-	$(FC) $(LDFLAGS) -o $@ $<
-
-hello: $(BIN_DIR)/hello
-	@$<
+$(COMMON_TARGETS):
+	@for d in *; do \
+	    if [ -d $$d -a ! -e $$d/.skip ]; then \
+	        $(MAKE) --no-print-directory -C $$d $@; \
+	    fi; \
+	done

@@ -4,6 +4,15 @@
 
 #define TRUE (1)
 
+/*
+ * prototype declarations
+ */
+
+int run_truth_machine(int);
+
+/*
+ * main function
+ */
 int main(void) {
 
     printf("\n"
@@ -34,15 +43,35 @@ int main(void) {
         if (val == 0 && read == stop)
             continue;
 
-        if (val == 1L) {
-            while (TRUE)
-                printf("1\n");
-        }
-        else if (val == 0L) {
-            printf("0\n");
+        if (run_truth_machine((int)val) == 0) {
             break;
         }
     } while (TRUE);
 
     return 0;
+}
+
+/*
+ * function implementations
+ */
+
+static void exec_true_action(void) {
+    while (TRUE)
+        printf("1\n");
+}
+
+static void exec_false_action(void) {
+    printf("0\n");
+}
+
+int run_truth_machine(int input) {
+    if (input == 1) {
+        exec_true_action();
+        return 0;
+    }
+    else if (input == 0) {
+        exec_false_action();
+        return 0;
+    }
+    return -1;
 }

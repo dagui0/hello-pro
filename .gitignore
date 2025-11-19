@@ -1,4 +1,13 @@
+# generated files
 bin
 build
+
+# makefile local settings
 .skip
 local.mk
+
+# for docker based runtime
+.docker.img-id
+.bash*
+.profile
+

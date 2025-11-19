@@ -1,5 +1,5 @@
 .data
-msg: .asciz "[Assembled x86_64] Hello, World!\n"
+msg: .asciz "[Assembly (as/linux/x86_64)] Hello, World!\n"
 .equ len, . - msg
 
 .text

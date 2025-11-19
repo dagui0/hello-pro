@@ -7,27 +7,6 @@ import (
 
 type TruthMachine struct{}
 
-func (this TruthMachine) Run(value int) error {
-	if value == 1 {
-		this.ExecTrueAction()
-		return nil
-	} else if value == 0 {
-		this.ExecFalseAction()
-		return nil
-	} else {
-		return fmt.Errorf("invalid input: %d. Only 0 or 1 allowed", value)
-	}
-}
-
-func (this TruthMachine) ExecTrueAction() {
-	for true {
-		fmt.Println("1")
-	}
-}
-func (this TruthMachine) ExecFalseAction() {
-	fmt.Println("0")
-}
-
 func main() {
 
 	intro := `
@@ -64,4 +43,25 @@ a programing language that takes only two inputs.
 			continue
 		}
 	}
+}
+
+func (this TruthMachine) Run(value int) error {
+	if value == 1 {
+		this.ExecTrueAction()
+		return nil
+	} else if value == 0 {
+		this.ExecFalseAction()
+		return nil
+	} else {
+		return fmt.Errorf("invalid input: %d. Only 0 or 1 allowed", value)
+	}
+}
+
+func (this TruthMachine) ExecTrueAction() {
+	for true {
+		fmt.Println("1")
+	}
+}
+func (this TruthMachine) ExecFalseAction() {
+	fmt.Println("0")
 }

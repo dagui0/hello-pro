@@ -1,5 +1,5 @@
 .data
-msg: .ascii "[Assembled x86] Hello, World!\n"
+msg: .ascii "[Assembly (as/linux/x86)] Hello, World!\n"
 len = . - msg
 
 .text

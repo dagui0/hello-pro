@@ -9,7 +9,7 @@ GO        = go
 
 # To run go using Docker, create `local.mk` and add the following line:
 #
-# GO = docker run --rm -u $$UID:$$GID -v .:/work -w /work golang:latest go
+# GO = docker run --rm -u $$UID:$$GID -v .:/app -w /app golang:latest go
 
 -include local.mk
 
