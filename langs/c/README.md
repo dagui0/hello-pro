@@ -49,7 +49,7 @@ C언어의 개발은 Unix 운영체제와 깊이 연관되어 있어서 따로 �
 
 현재 C언어의 표준은 ISO산하의 실무 그룹 ISO/IEC JTC1/SC22/WG14에 의해 관리되고 있다.
 
-* K&R C - 브라이언 커니핸과 데니스 리치의 저자 직강 [<The C Programming Language>](https://en.wikipedia.org/wiki/The_C_Programming_Language)을 말하는 것으로, 표준화 이전의 사실상의 표준
+* K&R C - 브라이언 커니핸과 데니스 리치의 저자 직강 ["The C Programming Language"](https://en.wikipedia.org/wiki/The_C_Programming_Language)을 말하는 것으로, 표준화 이전의 사실상의 표준
 * [ANSI C (C89/C90)](https://en.wikipedia.org/wiki/ANSI_C) - ANSI의 규격 C89를 ISO가 C90으로 승인함(C89와 C90은 같은 규격임)
 * [C99](https://en.wikipedia.org/wiki/C99) - 자료형 생략 금지(묵시적 `int` 선언 불허), `//` 주석, 가변 길이 배열(VLA) 등
 * [C11](https://en.wikipedia.org/wiki/C11_(C_standard_revision)) - 멀티스레딩 표준화(`<threads.h>`), 익명 구조체, 제네릭 등
@@ -59,7 +59,7 @@ C언어의 개발은 Unix 운영체제와 깊이 연관되어 있어서 따로 �
 
 * GCC - 오픈소스 및 Linux의 표준 컴파일러. '거의 대부분'이란 말은 겸손한 표현이고, '모든' 환경에서 개발 가능
 * Clang/LLVM - GCC 보다 개선된 구조로 개발되는 또 다른 오픈소스 컴파일러
-    * 라이센스(GPL) 문제를 피하기 위해서 Apple, ARM, Google 등 기업체들이 후원하여 급속 성장
+    * GCC의 라이센스(GPL) 문제를 피하기 위해서 Apple, ARM, Google 등 기업체들이 후원하여 급속 성장
 * OS 벤더 제공 공식 컴파일러
     * Microsoft Visual C/C++
     * Intel C++ Compiler, Oracle(Sun) Developer Studio 등

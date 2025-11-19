@@ -20,8 +20,8 @@ BEGIN {
 echo My name is $(awk -F: -v user=$USER '$1 == user { split($5, name, ","); print name[1] }' /etc/passwd)
 ```
 
-* [hello.awk](langs/awk/hello.awk)
-* [truth.awk](langs/awk/truth.awk)
+* [hello.awk](hello.awk)
+* [truth.awk](truth.awk)
 
 ---
 ## 소개
