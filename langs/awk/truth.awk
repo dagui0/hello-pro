@@ -12,15 +12,15 @@ BEGIN {
 
     printf "Enter 1 or 0: "
 }
-$0 ~ /^1$/ {
+$1 ~ /^1$/ {
     while (1) {
         print "1"
     }
 }
-$0 ~ /^0$/ {
+$1 ~ /^0$/ {
     print "0"
     exit
 }
-$0 !~ /^[01]$/ {
+$1 !~ /^[01]$/ {
     printf "Enter 1 or 0: "
 }

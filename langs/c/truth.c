@@ -25,7 +25,7 @@ int main(void) {
             continue;
 
         errno = 0;
-	char *stop = NULL;
+        char *stop = NULL;
         long val = strtol(read, &stop, 10);
         if (errno != 0)
             continue;
@@ -40,7 +40,7 @@ int main(void) {
         }
         else if (val == 0L) {
             printf("0\n");
-	    break;
+            break;
         }
     } while (TRUE);
 

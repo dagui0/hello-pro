@@ -2,9 +2,18 @@ BIN_DIR   = bin
 BUILD_DIR = build
 SRC_DIR   = .
 
--include local.setup.mk
+# To install go language locally, follow instructions at https://golang.org/doc/install
+# On debian based systems, you can also run:
+#   sudo apt install golang
+GO        = go
 
-.PHONY: run clean hello
+# To run go using Docker, create `local.mk` and add the following line:
+#
+# GO = docker run --rm -u $$UID:$$GID -v .:/work -w /work golang:latest go
+
+-include local.mk
+
+.PHONY: run clean hello truth
 .SECONDARY:
 
 run: hello
@@ -18,7 +27,10 @@ $(BUILD_DIR):
 	mkdir -p $@
 
 $(BIN_DIR)/%: $(SRC_DIR)/%.go | $(BIN_DIR)
-	go build -o $@ $<
+	$(GO) build -o $@ $<
 
 hello: $(BIN_DIR)/hello
+	@$<
+
+ truth: $(BIN_DIR)/truth
 	@$<

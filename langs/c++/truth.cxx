@@ -5,16 +5,25 @@ using namespace std;
 class TruthMachine {
 
 public:
-    void enter_true() {
+    void set_value(long val) {
+        if (val == 1L)
+            exec_true_action();
+        else if (val == 0L)
+            exec_false_action();
+        else
+            throw invalid_argument("Value must be 0 or 1");
+    }
+
+private:
+    void exec_true_action() {
         while (true)
             cout << "1" << endl;
     }
 
-    void enter_false() {
+    void exec_false_action() {
         cout << "0" << endl;
     }
 };
-
 
 int main(void) {
 
@@ -37,14 +46,8 @@ int main(void) {
 
         try {
             long val = stol(buf);
-            if (val == 1L) {
-                tm.enter_true();
-                waiting = false;
-            }
-            else if (val == 0L) {
-                tm.enter_false();
-                waiting = false;
-            }
+            tm.set_value(val);
+            waiting = false;
         }
         catch (exception &e) {
             // discard input and retry

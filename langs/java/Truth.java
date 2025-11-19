@@ -44,11 +44,14 @@ public class Truth {
                 break;
             }
             catch (NumberFormatException e) {
+                // retry
             }
             catch (IllegalArgumentException e) {
+                // retry
             }
 
             System.out.print("Enter 1 or 0: ");            
         }
+        sc.close();
     }
 }

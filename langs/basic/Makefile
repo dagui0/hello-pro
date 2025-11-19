@@ -2,7 +2,7 @@ BIN_DIR   = bin
 BUILD_DIR = build
 SRC_DIR   = .
 
--include local.setup.mk
+-include local.mk
 
 .PHONY: run clean hello truth truth-sp
 
