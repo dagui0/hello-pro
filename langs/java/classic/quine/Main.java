@@ -1,8 +1,10 @@
-public class Quine {
+package quine;
+public class Main {
     public static void main(String[] args) {
         char q = 34;      // Quotation mark character
         String[] l = {    // Array of source code
-            "public class Quine {",
+            "package quine;",
+            "public class Main {",
             "    public static void main(String[] args) {",
             "        char q = 34;      // Quotation mark character",
             "        String[] l = {    // Array of source code",

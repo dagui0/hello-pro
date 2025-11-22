@@ -35,6 +35,7 @@ DOCKER_DAEMON = docker exec -it -u $$(id -u):$$(id -g) $(DOCKER_DAEMON_NAME)
 DOCKER_MODE	=
 JAVA			= $(DOCKER_MODE) java
 JAVAC			= $(DOCKER_MODE) javac
+JAR			= $(DOCKER_MODE) jar
 
 -include local.mk
 
@@ -49,17 +50,16 @@ run: hello
 clean:
 	rm -rf $(BIN_DIR) $(BUILD_DIR)
 
-$(BIN_DIR):
-	mkdir -p $@
-$(BUILD_DIR):
+$(BIN_DIR) $(BUILD_DIR):
 	mkdir -p $@
 
-$(BIN_DIR)/hello.jar: $(_SOURCES) | $(BIN_DIR) $(BUILD_DIR)
-	$(JAVAC) -d $(BUILD_DIR) $(_SOURCES) && \
-	(cd $(BUILD_DIR); jar cfm ../$@ ../manifest.mf *)
+$(BIN_DIR)/%.jar: %/*.java | $(BIN_DIR) $(BUILD_DIR)
+	pkg=$$(basename $@ .jar); \
+	$(JAVAC) -d $(BUILD_DIR) $$(find $$pkg -name "*.java" -type f) && \
+	$(JAR) -cfe $@ $$pkg.Main -C $(BUILD_DIR) $$pkg
 
-$(BIN_DIR)/%: $(BIN_DIR)/hello.jar
-	@$(JAVA) -cp $< `echo $@ | sed -e 's!^$(BIN_DIR)/!!'`
+$(BIN_DIR)/%: $(BIN_DIR)/%.jar
+	@$(JAVA) -jar $<
 
 docker-daemon:
 	if [ $$(docker ps -a -f name=$(DOCKER_DAEMON_NAME) -q | wc -l) -eq 0 ]; then \
@@ -74,8 +74,8 @@ docker-clean:
 	    docker rm -f $(DOCKER_DAEMON_NAME); \
 	fi
 
-hello: $(BIN_DIR)/Hello
+hello: $(BIN_DIR)/hello
 
-quine: $(BIN_DIR)/Quine
+quine: $(BIN_DIR)/quine
 
-truth: $(BIN_DIR)/Truth
+truth: $(BIN_DIR)/truth
