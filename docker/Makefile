@@ -4,15 +4,16 @@ LINUX_PLATFORMS = linux/amd64,linux/arm64,linux/arm/v7
 
 -include local.mk
 
-.PHONY: help yabasic gcc-x86
+.PHONY: run clean docker-clean help yabasic gcc-x86
 
-help:
+help run:
 	@echo "Available targets:"
 	@echo "  yabasic        - Build and push yabasic Docker image"
 	@echo "  gcc-x86        - Build and push gcc-x86 Docker image"
 	@echo "  gnucobol       - Build and push gnucobol Docker image"
 	@echo "  freepascal     - Build and push freepascal Docker image"
-
+clean docker-clean:
+	@: no nothing
 yabasic: build/yabasic
 gcc-x86: build/gcc-x86
 gnucobol: build/gnucobol
