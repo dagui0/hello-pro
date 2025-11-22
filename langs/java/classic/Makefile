@@ -63,7 +63,9 @@ $(BIN_DIR)/%: $(BIN_DIR)/hello.jar
 
 docker-daemon:
 	if [ $$(docker ps -a -f name=$(DOCKER_DAEMON_NAME) -q | wc -l) -eq 0 ]; then \
-	    docker run -d --name $(DOCKER_DAEMON_NAME) $(DOCKER_OPTS) sleep infinity; \
+	    docker run -d --name $(DOCKER_DAEMON_NAME) --hostname $(DOCKER_DAEMON_NAME) \
+	    --restart=unless-stopped $(DOCKER_OPTS) \
+	    sleep infinity; \
 	fi
 
 docker-clean:
