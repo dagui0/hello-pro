@@ -31,6 +31,8 @@ _start:
         * `aarch64`: [hello.s](as/linux/aarch64/hello.s)
         * `x86_64`: [hello.s](as/linux/x86_64/hello.s)
         * `x86`: [hello.s](as/linux/x86/hello.s)
+* Microsoft Macro Assembler (MASM)
+    * MS-DOS: [hello.asm](masm/hello.asm)
 
 ---
 ## 소개

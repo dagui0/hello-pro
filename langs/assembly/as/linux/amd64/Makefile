@@ -30,7 +30,7 @@ DOCKER_OPTS		= -e USER=$$(id -un) -e UID=$$(id -u) -e GID=$$(id -g) \
 		-e LANG=$$LANG -v /etc/localtime:/etc/localtime:ro \
 		-v `pwd`:/app -w /app $(DOCKER_IMAGE)
 DOCKER_INSTANT	= docker run --rm -it $(DOCKER_OPTS)
-DOCKER_DAEMON = docker exec -it $(DOCKER_DAEMON_NAME)
+DOCKER_DAEMON = docker exec -it -u $$(id -u):$$(id -g) $(DOCKER_DAEMON_NAME)
 DOCKER_MODE	=
 AS			= $(DOCKER_MODE) as
 CC			= $(DOCKER_MODE) gcc

@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# /entrypoint.sh
+# /entrypoint.sh for debian
 #
 # Instant mode:
 #   docker run --rm -it <docker_options> <docker_image> cmd ...
@@ -58,10 +58,7 @@ cmd="$1"; shift
 
 case "$cmd" in
   sh|/bin/sh|bash|/bin/bash:/usr/bin/bash)
-    exec HISTFILE=/dev/null gosu $USER /bin/bash "$@"
-    ;;
-  basic|yabasic|/usr/bin/yabasic)
-    exec gosu $USER /usr/bin/yabasic "$@"
+    HISTFILE=/dev/null exec gosu $USER /bin/bash "$@"
     ;;
   daemon)
     echo "Starting container in daemon mode..."
@@ -70,6 +67,6 @@ case "$cmd" in
     exec gosu $USER sleep infinity
     ;;
   *)
-    exec $cmd "$@"
+    exec gosu $USER $cmd "$@"
     ;;
 esac

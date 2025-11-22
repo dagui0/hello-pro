@@ -1,4 +1,4 @@
-FROM debian:trixie-slim
+FROM debian:bookworm-slim
 
 LABEL maintainer="hello-pro project"
 
@@ -8,7 +8,7 @@ ENV UID=1000
 ENV GID=1000
 
 RUN apt-get update && \
-    apt-get install -y yabasic locales gosu && \
+    apt-get install -y gnucobol locales gosu && \
     rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
