@@ -24,7 +24,7 @@ SRC_DIR   = .
 #
 # make docker-clean # Stop and remove the container.
 #
-DOCKER_IMAGE	= golang:latest
+DOCKER_IMAGE	= golang:alpine
 DOCKER_DAEMON_NAME= hello-pro-$(shell pwd | sed -e 's!^.*hello-pro/langs/!!' -e 's!/!-!g' -e 's/\+/x/g')
 DOCKER_OPTS		= -e USER=$$(id -un) -e UID=$$(id -u) -e GID=$$(id -g) \
 		-e LANG=$$LANG -v /etc/localtime:/etc/localtime:ro \
