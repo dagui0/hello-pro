@@ -3,10 +3,10 @@
 # /entrypoint.sh
 #
 # Instant mode:
-#   docker run --rm -it <docker_options> <docker_image> basic hello.bas
+#   docker run --rm -it <docker_options> <docker_image> cmd ...
 # Daemon mode:
 #   docker run -d --name <container_id> <docker_options> <docker_image>
-#   docker exec -it <container_id> basic hello.bas
+#   docker exec -it <container_id>  cmd ...
 #
 # How to setup user, locale and timezone inside the container:
 # docker run ... \
@@ -26,7 +26,7 @@ setup_user() {
       if ! getent group "$gid" >/dev/null 2>&1; then
         groupadd -g "$gid" "$user"
       fi
-      useradd -M -u "$uid" -g "$gid" -d /app -s /bin/bash "$user"
+      useradd -M -u "$uid" -g "$gid" -d /tmp -s /bin/bash "$user"
     fi
 
     export USER=$user UID=$uid GID=$gid
@@ -58,10 +58,7 @@ cmd="$1"; shift
 
 case "$cmd" in
   sh|/bin/sh|bash|/bin/bash:/usr/bin/bash)
-    exec gosu $USER /bin/bash "$@"
-    ;;
-  basic|yabasic|/usr/bin/yabasic)
-    exec gosu $USER /usr/bin/yabasic "$@"
+    exec HISTFILE=/dev/null gosu $USER /bin/bash "$@"
     ;;
   daemon)
     echo "Starting container in daemon mode..."
@@ -70,7 +67,6 @@ case "$cmd" in
     exec gosu $USER sleep infinity
     ;;
   *)
-    echo "usage: docker exec -it ... { daemon | basic | yabasic | sh | bash }" >&2
-    exit 1
+    exec $cmd "$@"
     ;;
 esac

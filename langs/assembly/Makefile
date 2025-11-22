@@ -1,4 +1,4 @@
-COMMON_TARGETS = run clean
+COMMON_TARGETS = run clean docker-clean
 
 .PHONY: $(COMMON_TARGETS)
 

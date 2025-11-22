@@ -2,10 +2,7 @@ BIN_DIR   = bin
 BUILD_DIR = build
 SRC_DIR   = .
 
-CFLAGS = -Wall -Wextra -std=c89
-LDFLAGS = -Wall -Wextra -std=c89
-
-# To install the C compiler locally, you need to install the gcc toolchain.
+# To install the assembler locally, you need to install the gcc toolchain.
 # On Debian-based systems, you can also run:
 #
 # sudo apt install build-essential
@@ -43,7 +40,7 @@ LD			= $(DOCKER_MODE) ld
 -include local.mk
 
 .PHONY: run clean docker-daemon docker-clean \
-		hello truth echo
+		hello
 .SECONDARY:
 
 run: hello
@@ -56,11 +53,11 @@ $(BIN_DIR):
 $(BUILD_DIR):
 	mkdir -p $@
 
-$(BUILD_DIR)/%.o: $(SRC_DIR)/%.c | $(BUILD_DIR)
-	$(CC) $(CFLAGS) -c -o $@ $<
+$(BUILD_DIR)/%.o: $(SRC_DIR)/%.s | $(BUILD_DIR)
+	$(AS) $(ASFLAGS) -o $@ $<
 
 $(BIN_DIR)/%: $(BUILD_DIR)/%.o | $(BIN_DIR)
-	$(CC) $(LDFLAGS) -o $@ $<
+	$(LD) $(LDFLAGS) -o $@ $<
 
 docker-daemon:
 	if [ $$(docker ps -a -f name=$(DOCKER_DAEMON_NAME) -q | wc -l) -eq 0 ]; then \
@@ -74,7 +71,4 @@ docker-clean:
 	fi
 
 hello: $(BIN_DIR)/hello
-	@$<
-
-truth: $(BIN_DIR)/truth
 	@$<

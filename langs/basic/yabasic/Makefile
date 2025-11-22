@@ -4,35 +4,39 @@ SRC_DIR   = .
 
 # To install yabasic interpreter locally, follow instructions at https://www.yabasic.de/
 # On debian based systems, you can also run:
+#
 #   sudo apt install yabasic
-BASIC     = yabasic
-
-# To run BASIC using Docker, you must first build your own Docker image.
 #
-# make docker-build              # Create a Docker image
+# To run using Docker instant mode, create `local.mk` and add the following line:
 #
-# Create `local.mk` and add the following lines:
+# DOCKER_MODE = $(DOCKER_INSTANT)
 #
-# BASIC = docker run --rm -it \
-#     -e USER=$$(id -un) -e UID=$$(id -u) -e GID=$$(id -g) \
-#     -e LANG=$$LANG -v /etc/localtime:/etc/localtime:ro \
-#     -v `pwd`:/app -w /app $(DOCKER_IMAGE) yabasic
+# If you're interested in this language and plan to run it multiple times, daemon mode is recommended.
+# To run Docker in daemon mode, add the following line to `local.mk`:
 #
-# If you're interested in the BASIC language and plan to run it multiple times, daemon mode is recommended.
-# To run BASIC using Docker in daemon mode, add the following lines to `local.mk`:
+# DOCKER_MODE = $(DOCKER_DAEMON)
 #
-# BASIC = docker exec -it $(DOCKER_DAEMON) yabasic
+# If you're using Docker daemon mode, ensure the container is running.
 #
-# When running BASIC in Docker daemon mode, ensure that the container is running.
+# make docker-daemon # Start the container in daemon mode.
 #
-# make docker-daemon             # Start the container in daemon mode.
+# To remove the Docker daemon container, run:
 #
-DOCKER_IMAGE  = hellopro/yabasic:latest
-DOCKER_DAEMON = yabasic-daemon
+# make docker-clean # Stop and remove the container.
+#
+DOCKER_IMAGE  = dagui0/yabasic:latest
+DOCKER_DAEMON_NAME= hello-pro-$(shell pwd | sed -e 's!^.*hello-pro/langs/!!' -e 's!/!-!g')
+DOCKER_OPTS		= -e USER=$$(id -un) -e UID=$$(id -u) -e GID=$$(id -g) \
+		-e LANG=$$LANG -v /etc/localtime:/etc/localtime:ro \
+		-v `pwd`:/app -w /app $(DOCKER_IMAGE)
+DOCKER_INSTANT	= docker run --rm -it $(DOCKER_OPTS)
+DOCKER_DAEMON = docker exec -it $(DOCKER_DAEMON_NAME)
+DOCKER_MODE	=
+BASIC     = $(DOCKER_MODE) yabasic
 
 -include local.mk
 
-.PHONY: run clean docker-build docker-daemon docker-clean \
+.PHONY: run clean docker-daemon docker-clean \
 		hello truth truth-sp
 
 run: hello
@@ -43,36 +47,15 @@ clean:
 $(BIN_DIR)/%: $(SRC_DIR)/%.bas
 	@$(BASIC) $<
 
-docker-build: .docker.img-id
-.docker.img-id:
-	docker images -q $(DOCKER_IMAGE) >.docker.img-id; \
-	if [ $$(cat .docker.img-id | wc -l) -eq 0 ]; then \
-	    rm -f .docker.img-id; \
-	    docker build -t $(DOCKER_IMAGE) -f docker/Dockerfile docker && \
-		docker images -q $(DOCKER_IMAGE) >.docker.img-id; \
-	fi
-
-docker-daemon: .docker.img-id
-	if [ $$(docker ps -a -f name=$(DOCKER_DAEMON) -q | wc -l) -eq 0 ]; then \
-	  docker run -d --name $(DOCKER_DAEMON) \
-	    -e UID=$$(id -u) \
-	    -e GID=$$(id -g) \
-		-e USER=$$(id -un) \
-	    -e LANG=$$LANG \
-	    -v /etc/localtime:/etc/localtime:ro \
-	    -v `pwd`:/app \
-	    -w /app \
-	    $(DOCKER_IMAGE); \
+docker-daemon:
+	if [ $$(docker ps -a -f name=$(DOCKER_DAEMON_NAME) -q | wc -l) -eq 0 ]; then \
+	    docker run -d --name $(DOCKER_DAEMON_NAME) $(DOCKER_OPTS) sleep infinity; \
 	fi
 
 docker-clean:
-	if [ $$(docker ps -a -f name=$(DOCKER_DAEMON) -q | wc -l) -eq 1 ]; then \
-		docker stop -t 3 $(DOCKER_DAEMON); \
-	    docker rm -f $(DOCKER_DAEMON); \
-	fi; \
-	if [ -f .docker.img-id ]; then \
-	    docker rmi `cat .docker.img-id`; \
-		rm -f .docker.img-id; \
+	if [ $$(docker ps -a -f name=$(DOCKER_DAEMON_NAME) -q | wc -l) -eq 1 ]; then \
+	    docker stop -t0 $(DOCKER_DAEMON_NAME); \
+	    docker rm -f $(DOCKER_DAEMON_NAME); \
 	fi
 
 hello: $(BIN_DIR)/hello

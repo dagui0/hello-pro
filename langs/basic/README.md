@@ -34,8 +34,9 @@ BASIC은 Beginner's All-purpose Symbolic Instruction Code(초보자를 위한 �
 이 때문에 초창기 PC의 ROM에 탑재된 경우가 많았으며, 그런 경우 OS를 따로 구매하지 않아도 컴퓨터를 구동시킬 수 있었다.
 나중에는 컴파일해서 실행파일을 만들 수 있는 제품도 많이 나왔다.
 
-소스코드 작성시 앞에 숫자(행 번호)를 넣을 수 있는데, `GOTO` 명령어로 해당 번호로 점프할 수 있다. ([truth.bas](yabasic/truth.bas) 참조)
-이런 식으로 작성된 코드를 스파게티 코드(Spaghetti code)라고 하며, 70년대 [Pascal](../pascal/README.md)로 대표되는 구조적 프로그래밍(Structured Programming) 패러다임 이전의 구식 코딩 방식이다.
+소스코드 작성시 앞에 숫자(행 번호)를 넣을 수 있는데, `GOTO` 명령어로 해당 번호로 점프할 수 있다.
+([truth.bas](yabasic/truth.bas) 참조) 이런 식으로 작성된 코드를 스파게티 코드(Spaghetti code)라고 한다.
+1970년대에 시작된 구조적 프로그래밍(Structured Programming) 패러다임 이전의 구식 코딩 방식이다.
 
 Microsoft의 창업자 빌 게이츠 회장은 젊은 시절 BASIC 인터프리터를 개발해서 판매하면서 사업을 시작했으며,
 그래서 BASIC 언어에 많은 애정을 가지고 있었다고 전해진다. 그 때문인지 Microsoft의 OS에서는 BASIC 언어가
