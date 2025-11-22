@@ -27,7 +27,7 @@ LDFLAGS = -Wall -Wextra -std=c89
 #
 # make docker-clean # Stop and remove the container.
 #
-DOCKER_IMAGE	= gcc:latest
+DOCKER_IMAGE	= gcc:12
 DOCKER_DAEMON_NAME= hello-pro-$(shell pwd | sed -e 's!^.*hello-pro/langs/!!' -e 's!/!-!g')
 DOCKER_OPTS		= -e USER=$$(id -un) -e UID=$$(id -u) -e GID=$$(id -g) \
 		-e LANG=$$LANG -v /etc/localtime:/etc/localtime:ro \

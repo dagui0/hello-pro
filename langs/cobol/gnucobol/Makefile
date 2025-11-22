@@ -69,8 +69,7 @@ $(BUILD_DIR)/%.o: $(SRC_DIR)/%.cob | $(BUILD_DIR)
 docker-daemon:
 	if [ $$(docker ps -a -f name=$(DOCKER_DAEMON_NAME) -q | wc -l) -eq 0 ]; then \
 	    docker run -d --name $(DOCKER_DAEMON_NAME) --hostname $(DOCKER_DAEMON_NAME) \
-	    --restart=unless-stopped $(DOCKER_OPTS) \
-	    sleep infinity; \
+	    --restart=unless-stopped $(DOCKER_OPTS); \
 	fi
 
 docker-clean:
